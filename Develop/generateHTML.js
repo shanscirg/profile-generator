@@ -3,7 +3,7 @@ const colors = {
     wrapperBackground: "#E6E1C3",
     headerBackground: "#C1C72C",
     headerColor: "black",
-    photoBorderColor: "#black"
+    photoBorderColor: "black"
   },
   blue: {
     wrapperBackground: "#5F64D3",
@@ -25,7 +25,7 @@ const colors = {
   }
 };
 
-const generateHTML = function(data) {
+const generateHTML = function (color, stuff, map) {
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -35,6 +35,24 @@ const generateHTML = function(data) {
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
       <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
       <title>Document</title>
+      <body>
+      <div class="wrapper">
+      <div id="photo-header">
+        <img src="${stuff.data.avatar_url}"></img>
+      </div>
+      <div>Hi!</div>
+      <div>My name is ${stuff.data.name}!</div>
+      <div>
+      <div><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_location_on_48px-512.png" width="30" height="30"><a href="${map}">${stuff.data.location}</a></div>
+      <div><a href="${stuff.data.html_url}">GitHub</a></div>
+      <div><a href="${stuff.data.blog}">Blog</a></div>
+      </div>
+      </div>
+      <div>${stuff.data.bio}</div>
+
+
+      </body>
+
       <style>
           @page {
             margin: 0;
@@ -52,7 +70,7 @@ const generateHTML = function(data) {
          height: 100%;
          }
          .wrapper {
-         background-color: ${colors[data.color].wrapperBackground};
+         background-color: ${colors[color].wrapperBackground};
          padding-top: 100px;
          }
          body {
@@ -94,8 +112,8 @@ const generateHTML = function(data) {
          display: flex;
          justify-content: center;
          flex-wrap: wrap;
-         background-color: ${colors[data.color].headerBackground};
-         color: ${colors[data.color].headerColor};
+         background-color: ${colors[color].headerBackground};
+         color: ${colors[color].headerColor};
          padding: 10px;
          width: 95%;
          border-radius: 6px;
@@ -106,7 +124,7 @@ const generateHTML = function(data) {
          border-radius: 50%;
          object-fit: cover;
          margin-top: -75px;
-         border: 6px solid ${colors[data.color].photoBorderColor};
+         border: 6px solid ${colors[color].photoBorderColor};
          box-shadow: rgba(0, 0, 0, 0.3) 4px 1px 20px 4px;
          }
          .photo-header h1, .photo-header h2 {
@@ -149,8 +167,8 @@ const generateHTML = function(data) {
          .card {
            padding: 20px;
            border-radius: 6px;
-           background-color: ${colors[data.color].headerBackground};
-           color: ${colors[data.color].headerColor};
+           background-color: ${colors[color].headerBackground};
+           color: ${colors[color].headerColor};
            margin: 20px;
          }
          
@@ -172,7 +190,8 @@ const generateHTML = function(data) {
          }
       </style>
       </html>`
-        }
+}
 
-
-module.exports = generateHTML;
+module.exports = {
+  generateHTML: generateHTML
+}
