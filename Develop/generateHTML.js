@@ -25,7 +25,7 @@ const colors = {
   }
 };
 
-const generateHTML = function (color, stuff, map) {
+const generateHTML = function (color, stuff, map, stars) {
   return `<!DOCTYPE html>
 <html lang="en">
    <head>
@@ -35,21 +35,42 @@ const generateHTML = function (color, stuff, map) {
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
       <link href="https://fonts.googleapis.com/css?family=BioRhyme|Cabin&display=swap" rel="stylesheet">
       <title>Document</title>
+    </head>
       <body>
       <div class="wrapper">
-      <div id="photo-header">
-        <img src="${stuff.data.avatar_url}"></img>
+        <div class="photo-header">
+          <p><img id="prof-img" src="${stuff.data.avatar_url}"></img></p>
+          <h1>Hello World!</h1>
+          <h1>My name is ${stuff.data.name}!</h1>
+          <div>
+            <h4><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_location_on_48px-512.png" width="30" height="30"><a href="${map}">${stuff.data.location}</a></h4>
+            <h4><img src="https://image.flaticon.com/icons/png/512/25/25231.png" width="30" height="30"><a href="${stuff.data.html_url}">GitHub</a></h4>
+            <h4><img src="https://www.freeiconspng.com/uploads/blogger-logo-icon-png-28.png" width="30" height="30"><a href="${stuff.data.blog}">Blog</a></h4>
+          </div>
+        </div>
       </div>
-      <div>Hi!</div>
-      <div>My name is ${stuff.data.name}!</div>
-      <div>
-      <div><img src="https://cdn3.iconfinder.com/data/icons/google-material-design-icons/48/ic_location_on_48px-512.png" width="30" height="30"><a href="${map}">${stuff.data.location}</a></div>
-      <div><a href="${stuff.data.html_url}">GitHub</a></div>
-      <div><a href="${stuff.data.blog}">Blog</a></div>
+      <h2 id="bio">${stuff.data.bio}</h2>
+      <div class="container">
+        <div class='row'>
+          <div class='col'>
+            <div class="card">
+            <h3>Public Repositories:</h3>${stuff.data.public_repos}
+            </div>
+            <div class="card">
+            <h3>GitHub Stars</h3>${stars}
+            </div>
+          </div>
+          <div class='col'>
+            <div class="card">
+            <h3>Followers</h3>${stuff.data.followers}
+            </div>
+            <div class="card">
+            <h3>Following</h3>${stuff.data.following}
+            </div>
+          </div>
+        </div>
       </div>
-      </div>
-      <div>${stuff.data.bio}</div>
-
+      <div class="wrapper"></div>
 
       </body>
 
@@ -67,11 +88,12 @@ const generateHTML = function (color, stuff, map) {
          margin: 0;
          }
          html, body, .wrapper {
-         height: 100%;
+         height: 85%;
          }
          .wrapper {
          background-color: ${colors[color].wrapperBackground};
          padding-top: 100px;
+         text-align:center;
          }
          body {
          background-color: white;
@@ -118,9 +140,9 @@ const generateHTML = function (color, stuff, map) {
          width: 95%;
          border-radius: 6px;
          }
-         .photo-header img {
-         width: 250px;
-         height: 250px;
+         #prof-img {
+         width: 300px;
+         height: 300px;
          border-radius: 50%;
          object-fit: cover;
          margin-top: -75px;
@@ -134,36 +156,19 @@ const generateHTML = function (color, stuff, map) {
          .photo-header h1 {
          margin-top: 10px;
          }
-         .links-nav {
-         width: 100%;
-         text-align: center;
-         padding: 20px 0;
-         font-size: 1.1em;
-         }
-         .nav-link {
-         display: inline-block;
-         margin: 5px 10px;
-         }
-         .workExp-date {
-         font-style: italic;
-         font-size: .7em;
-         text-align: right;
-         margin-top: 10px;
-         }
          .container {
          padding: 50px;
          padding-left: 100px;
          padding-right: 100px;
+         text-align:center;
          }
-
          .row {
-           display: flex;
-           flex-wrap: wrap;
-           justify-content: space-between;
-           margin-top: 20px;
-           margin-bottom: 20px;
-         }
-
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          margin-top: 20px;
+          margin-bottom: 20px;
+        }
          .card {
            padding: 20px;
            border-radius: 6px;
@@ -171,10 +176,16 @@ const generateHTML = function (color, stuff, map) {
            color: ${colors[color].headerColor};
            margin: 20px;
          }
-         
+      
          .col {
          flex: 1;
          text-align: center;
+         }
+        
+         #bio {
+          margin-top: 5%;
+          text-align: center;
+          padding-top: 5%;
          }
 
          a, a:hover {
